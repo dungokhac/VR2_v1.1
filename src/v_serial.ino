@@ -66,9 +66,19 @@ void serial_test()
 
 							ret = cmd_rx.data[0];
 							ret_code = cmd_rx.data[1];
-							// uart0.println("cmd_rx.data[0]"+ String(cmd_rx.data[0]));
-							// uart0.println("cmd_rx.data[1]"+ String(cmd_rx.data[1]));
-							// uart0.println("cmd_rx.data[2]"+ String(cmd_rx.data[2]));
+							uart0.println("cmd_rx.data[0]" + String(cmd_rx.data[0]));
+							uart0.println("cmd_rx.data[1]" + String(cmd_rx.data[1]));
+							uart0.println("cmd_rx.data[2]" + String(cmd_rx.data[2]));
+							uart0.println("cmd_rx.len" + String(cmd_rx.len));
+							if (cmd_rx.len == 4 && ret == 1)
+							{
+								switch (cmd_rx.rcm)
+								{
+								case Verify_Feature:
+									uart0.println("Xac thuc van tay thanh cong");
+									break;
+								}
+							}
 							memcpy(udp_tx.cmd_rx.prefix, cmd_rx.prefix, sizeof(cmd_rx));
 							if (ret == 0)
 							{
@@ -81,7 +91,11 @@ void serial_test()
 									// fp_auto_off=500;
 									cmd_send(Verify_Feature, 498, 0);
 									uart1.write(data_tx.prefix, 498 + 8);
+
+									// if (cmd_rx.len == 4)
+									// 	uart0.println("Xac thuc van tay thanh cong");
 									break;
+
 								case Read_Page:
 									break;
 
@@ -95,7 +109,7 @@ void serial_test()
 										mocua();
 										// readFile(SPIFFS, "/hello.txt");
 										String page = String(ret_code);
-										uart0.println("ma_vt"+ page);
+										uart0.println("ma_vt" + page);
 										data_chamcong = "getAccessDoor?fpIndex=" + page + "&&readercode=" + ma_tbi;
 										// data_chamcong = "010202060532" + ma_tbi + "11" + fix_len(String(page.length()), 2) + page;
 										// get_vantay(data_chamcong);
@@ -144,6 +158,12 @@ void serial_test()
 									}
 
 									break;
+									// case Verify_Feature:
+
+									// if (cmd_rx.len == 4)
+									// 	uart0.println("Xac thuc van tay thanh cong");
+									// 	break;
+									// }
 								}
 							}
 							else
@@ -340,7 +360,8 @@ void serial2_test()
 								// gốc
 								reset_7462("2x3");
 								delay(1000);
-									if (wifi_on) send_https(s);
+								if (wifi_on)
+									send_https(s);
 							}
 						}
 						else if (serial2_in.startsWith("^5"))

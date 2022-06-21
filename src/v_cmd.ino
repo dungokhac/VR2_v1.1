@@ -196,3 +196,8 @@ void Docxacthuc6(){// doc xac thuc fi6
 	 bipok1();
 	reset_7462("2xx2");
 }
+void Docxacthuc7(){// doc xac thuc fi7
+	 bipok1();
+	xacthucvantay = 1; 
+	reset_7462("2xx3");
+}

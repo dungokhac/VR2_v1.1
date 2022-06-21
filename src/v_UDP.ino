@@ -160,12 +160,21 @@ void gui_id_thietbi(){
   out1 = str_idtb(my_id)+"^101TB"+str_idtb(my_id)+ bcc_check_step("101TB"+str_idtb(my_id),6)+"#";
   udp_out_config(out1);
 }
-void yeu_cau_nhapmk(){
+// void yeu_cau_nhapmk(){
 
-  biper1();
+//   biper1();
   
+//   udp_out_ip("105",hangdoi_Front());
+// }
+//a nam lam
+void yeu_cau_nhapmk(){
+  biper1();
   udp_out_ip("105",hangdoi_Front());
+  cmd_send(Verify_Feature, 2, 0);
+  uart1.write(cmd_tx.prefix, sizeof(cmd_tx));
+  Docxacthuc7();
 }
+
 void thong_bao_udp(String s){
   String s11 = str_idtb(my_id) + "^106"+s+"_"+bcc_check_step("106"+s+"_",6)+"#";
   udp_out_config(s11);
