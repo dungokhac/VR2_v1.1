@@ -72,7 +72,7 @@ void cmd_send(int16 cmd, int16 len, int16 page_id)
     // case Set_Security:
     // case Get_Security:
     case Identify_Feature:
-        fp_auto_off = 250;
+        fp_auto_off = 5000;
         break;
     default:
         break;
@@ -89,7 +89,7 @@ void cmd_send(int16 cmd, int16 len, int16 page_id)
         if (cmd == Verify_Feature)
         {
             cmd_tx.data[0] = 498;
-            memcpy(char_buf, udp_rx.data, char_buf_len);
+            // memcpy(char_buf, udp_rx.data, char_buf_len);
         }
         else if (cmd == Set_Security)
         {

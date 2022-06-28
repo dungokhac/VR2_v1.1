@@ -211,7 +211,7 @@ void fp_test()
 		fp_detect_cnt = 0;
 		if (fp_auto_off == 0)
 		{
-			cmd_send(Identify, 0, 0);
+			// cmd_send(Identify, 0, 0);
 			uart1.write(cmd_tx.prefix, sizeof(cmd_tx));
 		}
 	}

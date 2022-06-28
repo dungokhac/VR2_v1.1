@@ -66,17 +66,19 @@ void serial_test()
 
 							ret = cmd_rx.data[0];
 							ret_code = cmd_rx.data[1];
+							uart0.println("cmd_rx.rcm" + String(cmd_rx.rcm));
 							uart0.println("cmd_rx.data[0]" + String(cmd_rx.data[0]));
 							uart0.println("cmd_rx.data[1]" + String(cmd_rx.data[1]));
-							uart0.println("cmd_rx.data[2]" + String(cmd_rx.data[2]));
 							uart0.println("cmd_rx.len" + String(cmd_rx.len));
-							if (cmd_rx.len == 4 && ret == 1)
+							if (cmd_rx.len == 4 && ret == 0)
 							{
+								
 								switch (cmd_rx.rcm)
 								{
-								case Verify_Feature:
-									uart0.println("Xac thuc van tay thanh cong");
-									break;
+									case Verify_Feature:
+										fp_auto_off=5000;
+										uart0.println("Verify_Feature");
+										break;
 								}
 							}
 							memcpy(udp_tx.cmd_rx.prefix, cmd_rx.prefix, sizeof(cmd_rx));
@@ -88,7 +90,7 @@ void serial_test()
 									fs01_on = 1;
 									break;
 								case Verify_Feature:
-									// fp_auto_off=500;
+									fp_auto_off=5000;
 									cmd_send(Verify_Feature, 498, 0);
 									uart1.write(data_tx.prefix, 498 + 8);
 
@@ -227,7 +229,7 @@ void serial_test()
 								}
 								ghivantay = 1;
 								// Play_voice(Moi_dat_the);
-								ghivantayvaothe(sss); // hamghivantayvaothe
+								// ghivantayvaothe(sss); // hamghivantayvaothe
 							}
 							else
 							{
@@ -565,4 +567,7 @@ void FS01_RES(String s1)
 		sss += s_hex.substring(n, n + 1);
 	}
 	// uart0.println(s1 + sss); // Thông báo đặt thẻ ghi vân tay
+}
+void sendFS01(int len){
+	uart1.write(data_tx.prefix, len);
 }

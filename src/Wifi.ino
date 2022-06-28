@@ -17,7 +17,7 @@ void wifi_setup()
     }
   }
   wifiMulti.addAP("FPT_Telecom", "bat4gdiban");
-
+  wifiMulti.addAP("ViMASS_PC","VMPC6996");
   WiFi.setAutoReconnect(true);
   uint8 sec_cnt = 0;
   wifi_on = 0;
